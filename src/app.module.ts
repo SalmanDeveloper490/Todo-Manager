@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -20,8 +21,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         database: configService.get('DATABASE_NAME'),
         synchronize: configService.get<boolean>('DATABASE_SYNC'),
         logging: configService.get<boolean>('DATABASE_LOGGING=true'),
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
       }),
     }),
+    UserModule,
   ],
   controllers: [],
   providers: [],
